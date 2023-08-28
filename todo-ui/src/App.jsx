@@ -27,6 +27,10 @@ function App() {
       <Route path='/add-todos' element={<TodoComponent/>}></Route>
    
 
+      {/* //https://localhost:3000/update-todo/1 */}
+      <Route path='/update-todo/:id' element={<TodoComponent/>}></Route>
+
+
       </Routes>
 
 

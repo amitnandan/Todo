@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { getAllTodos } from '../services/TodoService'
+import { deleteTodo, getAllTodos } from '../services/TodoService'
 import { useNavigate } from 'react-router-dom'
 
 const ListTodoComponent = () => {
@@ -28,6 +28,21 @@ useEffect(
         navigate('/add-todos');
    }
 
+   function updateTodo(id){
+    console.log(id);
+    navigate(`/update-todo/${id}`);
+   }
+
+   function deletefunc(id){
+    deleteTodo(id).then((response)=>{
+        ListTodos();
+
+    }).catch(error=>console.error(error));
+
+   }
+
+ 
+
   return (
     <div className='container'>
         <h1 className='text-center'> List Of Todo's</h1>
@@ -41,6 +56,7 @@ useEffect(
                         <th>TODO title</th>
                         <th>TODO Description</th>
                         <th>TODO Completed</th>
+                        <th>Action</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -57,7 +73,18 @@ useEffect(
 
 
                                             <td>{todo.completed ? 'YES':'NO'}</td>
+                                            <td>
+                                                <button className='btn btn-info'
+                                                        onClick={()=>updateTodo(todo.id)}
+                                                > Update</button>
+                                                <button className='btn btn-danger'
+                                                        style={ { marginLeft : "15px" } }
+                                                        onClick={()=>deletefunc(todo.id)}
+                                                > Delete</button>
 
+
+
+                                            </td>
 
                                     </tr>
                                     
