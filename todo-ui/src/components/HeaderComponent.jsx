@@ -1,4 +1,5 @@
 import React from 'react'
+import { NavLink } from 'react-router-dom'
 
 const HeaderComponent = () => {
   return (
@@ -12,6 +13,35 @@ const HeaderComponent = () => {
                     Todo Management App
                 </a>
             </div>
+
+            <div className='collapse navbar-collapse'>
+              <ul className='navbar-nav'>
+                <li className="nav-item">
+                  <NavLink to="/todoss" className="nav-link">
+                    Todo
+                  </NavLink>
+
+
+                 </li>
+              </ul>
+            </div>
+            <ul className='navbar-nav'>
+                <li className="nav-item">
+                  <NavLink to="/register" className="nav-link">
+                    Register
+                  </NavLink>
+
+
+                 </li>
+
+                 <li className="nav-item">
+                  <NavLink to="/login" className="nav-link">
+                    Login
+                  </NavLink>
+
+
+                 </li>
+              </ul>
         </nav>
       </header>
 
