@@ -1,6 +1,25 @@
 import axios from "axios";
+import { getToken } from "./AuthService";
 
 const REST_API_URI = 'http://localhost:8080/api/todos';
+
+axios.interceptors.request.use(function (config) {
+    
+  config.headers['Authorization'] = getToken();
+
+  return config;
+}, function (error) {
+  // Do something with request error
+  return Promise.reject(error);
+});
+
+//preflight contains meta data : 
+//additional request which http method 
+//used server inspact this and decide 
+//whether the browser is allowed to send the request
+
+
+
 
 export const getAllTodos = ()=> axios.get(REST_API_URI);
 

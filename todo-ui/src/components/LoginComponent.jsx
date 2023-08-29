@@ -1,6 +1,13 @@
 import React, { useState } from 'react'
-import { loginAPICall } from '../services/AuthService';
+import { loginAPICall, savedLoggedInUser, storeToken } from '../services/AuthService';
 import {useNavigate} from 'react-router-dom'
+
+
+
+
+
+
+
 const LoginComponent = () => {
 
    const[username ,setUsername] = useState('')
@@ -8,12 +15,18 @@ const LoginComponent = () => {
 
   const navigate =  useNavigate();
 
-    function handleLoginForm(e){
+  async function handleLoginForm(e){
         e.preventDefault();
 
-        loginAPICall(username,password).then((response)=>{
+       await loginAPICall(username,password).then((response)=>{
             console.log(response.data);
+                                    //take string and convert into base64 texxt
+            const token = 'Basic ' + window.btoa(username + ":" + password);
+            savedLoggedInUser( username);
+            storeToken(token);
             navigate('/todos');
+
+            window.location.reload(false);
 
         }).catch((error=>console.error(error)))
     }
