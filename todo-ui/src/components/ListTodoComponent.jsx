@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { completeTodo,inCompleteTodo, deleteTodo, getAllTodos } from '../services/TodoService'
 import { useNavigate } from 'react-router-dom'
+import { isAdminUser } from '../services/AuthService'
 
 const ListTodoComponent = () => {
 
@@ -57,12 +58,21 @@ useEffect(
 
   }
 
+
+  const isAdmin = isAdminUser();
+
   return (
     <div className='container'>
         <h1 className='text-center'> List Of Todo's</h1>
-        <button className='btn btn-primary mb-2'
-            onClick={addNewTodo}
-        >Add TODO</button>
+        
+        {
+            isAdmin && <button className='btn btn-primary mb-2'
+                        onClick={addNewTodo}
+                    >Add TODO</button>
+                    
+        }
+        
+        
         <div>
             <table className='table table-bordered table-stripped'>
                 <thead>
@@ -88,13 +98,21 @@ useEffect(
 
                                             <td>{todo.completed ? 'YES':'NO'}</td>
                                             <td>
-                                                <button className='btn btn-info'
-                                                        onClick={()=>updateTodo(todo.id)}
-                                                > Update</button>
+                                                {
+                                                    isAdmin && 
+                                                    <button className='btn btn-info'
+                                                            onClick={()=>updateTodo(todo.id)}
+                                                    > Update</button>
+                                                }
+                                                 {
+                                                    isAdmin && 
+                                                    
                                                 <button className='btn btn-danger'
-                                                        style={ { marginLeft : "15px" } }
-                                                        onClick={()=>deletefunc(todo.id)}
-                                                > Delete</button>
+                                                style={ { marginLeft : "15px" } }
+                                                onClick={()=>deletefunc(todo.id)}
+                                        > Delete</button>
+                                                }
+
 
                                                 <button className='btn btn-success'
                                                         style={ { marginLeft : "15px" } }

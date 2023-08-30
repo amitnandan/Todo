@@ -21,9 +21,14 @@ const LoginComponent = () => {
        await loginAPICall(username,password).then((response)=>{
             console.log(response.data);
                                     //take string and convert into base64 texxt
-            const token = 'Basic ' + window.btoa(username + ":" + password);
-            savedLoggedInUser( username);
+            // const token = 'Basic ' + window.btoa(username + ":" + password);
+            const token = 'Bearer '+response.data.accessToken;
+           
+            const role = response.data.role;
+
             storeToken(token);
+            savedLoggedInUser( username , role);
+            
             navigate('/todos');
 
             window.location.reload(false);
